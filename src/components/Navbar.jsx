@@ -1,32 +1,25 @@
 import React from "react";
+import { Link } from "react-router";
 
 function Navbar() {
   return (
     <nav className="bg-blue-500 p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <a href="#" className="text-white text-2xl font-semibold">
-          REACTSITE
-        </a>
+        <h1 className="text-white text-2xl font-semibold">
+          <Link to="/">REACTSITE</Link>
+        </h1>
         <ul className="flex space-x-4">
-          <li>
-            <a href="#" className="text-white">
-              Home
-            </a>
+          <li className="text-white">
+            <Link to="/">Home</Link>
           </li>
-          <li>
-            <a href="#" className="text-white">
-              About
-            </a>
+          <li className="text-white">
+            <Link to="/about">About</Link>
           </li>
-          <li>
-            <a href="#" className="text-white">
-              Services
-            </a>
+          <li className="text-white">
+            <Link to="/services">Services</Link>
           </li>
-          <li>
-            <a href="#" className="text-white">
-              Contact
-            </a>
+          <li className="text-white">
+            <Link to="/contact">Contact</Link>
           </li>
         </ul>
       </div>

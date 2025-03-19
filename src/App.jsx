@@ -1,7 +1,4 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { BrowserRouter, Route, Routes } from "react-router";
 // components
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -15,17 +12,29 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <>
+    <BrowserRouter>
       <Navbar />
-      <Hero />
-      <About />
-      <Info_1 />
-      <Info_2 />
-      <CTA />
-      <Services />
-      <Contact />
+      <Routes>
+        {/* Homepage route with multiple sections */}
+        <Route
+          path="/"
+          element={
+            <>
+              <Hero />
+              <About />
+              <Info_1 />
+              <Info_2 />
+              <CTA />
+            </>
+          }
+        />
+        {/* Other routes */}
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<Contact />} />
+      </Routes>
       <Footer />
-    </>
+    </BrowserRouter>
   );
 }
 
