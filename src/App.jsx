@@ -24,6 +24,7 @@ function App() {
               <About />
               <Info_1 />
               <Info_2 />
+              <Services />
               <CTA />
             </>
           }
