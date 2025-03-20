@@ -1,39 +1,76 @@
 import { BrowserRouter, Route, Routes } from "react-router";
-// components
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import About from "./components/About";
-import Info_1 from "./components/Info_1";
-import Info_2 from "./components/Info_2";
-import CTA from "./components/CTA";
-import Services from "./components/Services";
-import Contact from "./components/Contact";
-import Footer from "./components/Footer";
+import { Suspense, lazy } from "react";
+import Navbar from "./components/Navbar"; // Load Navbar normally
+import Footer from "./components/Footer"; // Load Footer normally
+
+// Lazy-loaded components
+const Hero = lazy(() => import("./components/Hero"));
+const About = lazy(() => import("./components/About"));
+const Info_1 = lazy(() => import("./components/Info_1"));
+const Info_2 = lazy(() => import("./components/Info_2"));
+const CTA = lazy(() => import("./components/CTA"));
+const Services = lazy(() => import("./components/Services"));
+const Contact = lazy(() => import("./components/Contact"));
 
 function App() {
   return (
     <BrowserRouter>
       <Navbar />
-      <Routes>
-        {/* Homepage route with multiple sections */}
-        <Route
-          path="/"
-          element={
-            <>
-              <Hero />
-              <About />
-              <Info_1 />
-              <Info_2 />
-              <Services />
-              <CTA />
-            </>
-          }
-        />
-        {/* Other routes */}
-        <Route path="/about" element={<About />} />
-        <Route path="/services" element={<Services />} />
-        <Route path="/contact" element={<Contact />} />
-      </Routes>
+      <Suspense fallback={<div className="text-center py-10">Loading...</div>}>
+        <Routes>
+          {/* Homepage route with lazy loaded components */}
+          <Route
+            path="/"
+            element={
+              <>
+                <Hero />
+                <About />
+                <Info_1 />
+                <Info_2 />
+                <Services />
+                <CTA />
+              </>
+            }
+          />
+          {/* Other routes */}
+          <Route
+            path="/about"
+            element={
+              <Suspense
+                fallback={
+                  <div className="text-center py-10">Loading About...</div>
+                }
+              >
+                <About />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/services"
+            element={
+              <Suspense
+                fallback={
+                  <div className="text-center py-10">Loading Services...</div>
+                }
+              >
+                <Services />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <Suspense
+                fallback={
+                  <div className="text-center py-10">Loading Contact...</div>
+                }
+              >
+                <Contact />
+              </Suspense>
+            }
+          />
+        </Routes>
+      </Suspense>
       <Footer />
     </BrowserRouter>
   );
